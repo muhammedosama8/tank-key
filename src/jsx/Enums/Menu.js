@@ -96,13 +96,13 @@ export const MenuList = [
     text: "banners",
   },
   // Time Slot
-  {
-    title: "Time Slot",
-    classsChange: "mm-collapse",
-    iconStyle: <i className="la la-clock"></i>,
-    to: "time-slot",
-    text: "time_slot",
-  },
+  // {
+  //   title: "Time Slot",
+  //   classsChange: "mm-collapse",
+  //   iconStyle: <i className="la la-clock"></i>,
+  //   to: "time-slot",
+  //   text: "time_slot",
+  // },
   // Ad Screen
   {
     title: "Ad Screen",
