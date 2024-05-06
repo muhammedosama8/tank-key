@@ -7,6 +7,10 @@ import DeleteModal from "../../../common/DeleteModal";
 import UserService from "../../../../services/UserService";
 
 const CardItem = ({ item, index, setShouldUpdate }) => {
+  const [phone, setPhone] = useState({
+    country_code:'',
+    phone:''
+  });
   const [status, setStatus] = useState(null);
   const [deleteModal, setDeleteModal] = useState(false);
   const Auth = useSelector((state) => state.auth?.auth);
@@ -16,6 +20,13 @@ const CardItem = ({ item, index, setShouldUpdate }) => {
 
   useEffect(() => {
     setStatus(item.isBlocked);
+    if(!!item?.user_phones?.length){
+      let data = item?.user_phones?.filter(res=> res?.is_default)
+      setPhone({
+        country_code: data[0]?.country_code,
+        phone: data[0]?.phone
+      })
+    }
   }, [item]);
 
   return (
@@ -24,17 +35,17 @@ const CardItem = ({ item, index, setShouldUpdate }) => {
         <strong>{item.id}</strong>
       </td>
       <td>
-        {item.username ? (
+        {item.f_name ? (
           <p
             className="mb-0 user"
             style={{
-              fontWeight: !!item.username && "800",
+              fontWeight: !!item.f_name && "800",
               opacity: ".75",
               textTransform: "capitalize",
               cursor: "pointer",
             }}
           >
-            {item.username}
+            {item.f_name} {item.l_name}
           </p>
         ) : (
           "-"
@@ -42,8 +53,8 @@ const CardItem = ({ item, index, setShouldUpdate }) => {
       </td>
       <td>{item.email || "-"}</td>
       <td>
-        {item?.country_code}
-        {item?.phone || "-"}
+        {phone?.country_code}
+        {phone?.phone || "-"}
       </td>
       <td>
         <Form.Check

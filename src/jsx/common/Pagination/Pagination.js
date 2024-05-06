@@ -54,7 +54,7 @@ const Pagination = ({
     return (
       <Row className="pagination mt-3 px-2">
         <Col md={12} className="text-center">
-          <div className="filter-pagination  mt-3">
+          <div className="filter-pagination d-flex justify-content-between mt-3">
             <button
               className="previous-button"
               onClick={() => {
@@ -63,9 +63,39 @@ const Pagination = ({
               }}
               disabled={parseInt(page) === 1}
             >
-              <i className="la la-arrow-left"></i> {Translate[lang]?.previous}
+              {lang === "en" ? (
+                <i className="la la-arrow-left"></i>
+              ) : (
+                <i className="la la-arrow-right"></i>
+              )}{" "}
+              {Translate[lang]?.previous}
             </button>
-            <div>{}</div>
+            <div className="d-flex" style={{ gap: "5px" }}>
+                {Array.from(
+                  { length: totalPages },
+                  (_, index) => index + 1
+                )?.map((num) => {
+                  return (
+                    <p
+                      onClick={() => {
+                        setPage(num);
+                        setPageShow(num);
+                      }}
+                      style={{
+                        padding: "5px 10px",
+                        margin: "0",
+                        cursor: "pointer",
+                        color:
+                          parseInt(page) === parseInt(num)
+                            ? "var(--primary)"
+                            : "",
+                      }}
+                    >
+                      {num}
+                    </p>
+                  );
+                })}
+              </div>
             <button
               className="next-button"
               onClick={() => {
@@ -74,7 +104,12 @@ const Pagination = ({
               }}
               disabled={parseInt(page) === totalPages}
             >
-              {Translate[lang]?.next} <i className="la la-arrow-right"></i>
+              {Translate[lang]?.next}{" "}
+              {lang === "en" ? (
+                <i className="la la-arrow-right"></i>
+              ) : (
+                <i className="la la-arrow-left"></i>
+              )}
             </button>
           </div>
         </Col>
